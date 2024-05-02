@@ -1,0 +1,21 @@
+version: 2.1
+orbs:
+  blackduck: sequencebio/blackduck@1.0.3
+jobs:
+  blackduck_scan:
+    executor: blackduck/default
+    steps:
+      - checkout
+      - blackduck/scan
+
+workflows:
+  version: 2
+  blackduck_scan:
+    jobs:
+      - blackduck_scan:
+          context: blackduck_scan
+          filters:
+            branches:
+              only: /.*/
+            tags:
+              only: /.*/
